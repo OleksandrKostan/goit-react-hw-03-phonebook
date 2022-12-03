@@ -55,6 +55,24 @@ export class App extends Component {
     }));
   };
 
+
+  componentDidUpdate(prevProps, prevState) {
+    const nextContacts = this.state.contacts;
+    const prevContacts = prevState.contacts;
+    if (nextContacts !== prevContacts) {
+      localStorage.setItem('contacts', JSON.stringify(nextContacts));
+    }
+  }
+  // порівнюємо попередній стейт із наступним, та записуємо в локал сторедж
+ componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+ }
+  // витягуємо із локал сторедж, розпаршуємо та рендимо збережене
+
   render() {
     const { filter } = this.state;
     return (<> <ThemeProvider theme={theme}> <GlobalStyle />
