@@ -24,17 +24,17 @@ export class App extends Component {
       name,
       number,
     };
-  
-      const findContact = this.state.contacts.find(contact => contact.name.toLowerCase().includes(name.toLowerCase()));
 
-      if (findContact) {
-        alert(`${findContact.name} is already in contacts`)
-        return findContact.name;
-      } else {
-        this.setState(({contacts}) => ({
-          contacts: [contact, ...contacts],
-        }));
-      };
+    const findContact = this.state.contacts.find(contact => contact.name.toLowerCase().includes(name.toLowerCase()));
+
+    if (findContact) {
+      alert(`${findContact.name} is already in contacts`)
+      return findContact.name;
+    } else {
+      this.setState(({ contacts }) => ({
+        contacts: [contact, ...contacts],
+      }));
+    };
   };
 
   changeFilter = e => {
@@ -64,13 +64,13 @@ export class App extends Component {
     }
   }
   // порівнюємо попередній стейт із наступним, та записуємо в локал сторедж
- componentDidMount() {
+  componentDidMount() {
     const contacts = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(contacts);
     if (parsedContacts) {
       this.setState({ contacts: parsedContacts });
     }
- }
+  }
   // витягуємо із локал сторедж, розпаршуємо та рендимо збережене
 
   render() {
@@ -81,7 +81,7 @@ export class App extends Component {
       <h2>Contacts</h2>
       <Filter value={filter} onChange={this.changeFilter} />
       <ContactList contacts={this.getFilteredContacts()}
-        onClickDelete={this.deleteContacts}/>
+        onClickDelete={this.deleteContacts} />
     </ThemeProvider> </>
     );
   }
